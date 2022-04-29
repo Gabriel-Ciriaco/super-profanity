@@ -1,0 +1,26 @@
+{
+  "name": "super-profanity",
+  "version": "1.0.0",
+  "description": "",
+  "main": "profanity.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gasegamer/super-profanity.git"
+  },
+  "author": "Gabriel Ciriaco de Carvalho",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/Gasegamer/super-profanity/issues"
+  },
+  "homepage": "https://github.com/Gasegamer/super-profanity#readme",
+  "dependencies": {
+    "noswearing": "^1.2.0",
+    "tinyld": "^1.2.0"
+  },
+  "exports": {
+	".": "./dist/profanity.js"
+  }
+}
