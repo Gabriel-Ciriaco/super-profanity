@@ -1,7 +1,7 @@
 {
   "name": "super-profanity",
   "version": "1.0.0",
-  "description": "",
+  "description": "A profanity filter that lives up to its name.",
   "main": "profanity.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,8 +10,20 @@
     "type": "git",
     "url": "git+https://github.com/Gasegamer/super-profanity.git"
   },
+  "keywords": [
+    "profanity",
+    "filter",
+	"lang",
+    "language",
+    "language detection",
+    "natural-language",
+    "detect",
+    "detector",
+    "n-gram",
+	"bad word"
+  ]
   "author": "Gabriel Ciriaco de Carvalho",
-  "license": "MPL-2.0",
+  "license": "(MPL-2.0 and Apache-2.0)",
   "bugs": {
     "url": "https://github.com/Gasegamer/super-profanity/issues"
   },
