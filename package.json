@@ -21,7 +21,8 @@
     "detector",
     "n-gram",
 	"bad word"
-  ]
+  ],
+  "homepage": "https://github.com/Gasegamer/super-profanity",
   "author": "Gabriel Ciriaco de Carvalho",
   "license": "(MPL-2.0 and Apache-2.0)",
   "bugs": {
