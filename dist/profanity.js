@@ -31,7 +31,7 @@ const fs = require("fs").promises;
 const path = require("path");
 
 const { detectAll } = require("tinyld");
-const { NoSwearing } = require("noswearing");
+const { NoSwearing } = require(path.resolve(__dirname, './custom_module/noswearing'));
 
 /** @const {string} - Default language used to detect bad words. */
 const mainLanguage = "en";
@@ -81,7 +81,7 @@ function checker(text, language = mainLanguage, hideInformation = false) {
  * @param {mainLanguage=} [options.mainLanguage=mainLanguage] - A default language to use in case all other detected fails.
  * @param {hideInformation=} [options.hideInformation=false] - Displays or not the information about the detection.
  */
-function profanity(text, options) {
+function profanity(text, options={}) {
   options.autoLog = options.autoLog === undefined ? false : options.autoLog;
   options.mainLanguage =
     options.mainLanguage === undefined ? mainLanguage : options.mainLanguage;
