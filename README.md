@@ -123,8 +123,7 @@ SOFTWARE.
 
 ---
 
-## Contributors ✨
-This wouldn't be possible without these wonderful people:
+## Author ✨
 
 <table>
 	<tr>
