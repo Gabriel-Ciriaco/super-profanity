@@ -55,7 +55,7 @@ Changed main language from en to pt.
 
 ---
 
-### Usefull functions
+### Useful functions
 
 #### Whitelist
 Whitelist a word in a specific language.
