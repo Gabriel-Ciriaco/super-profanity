@@ -1,6 +1,6 @@
 {
   "name": "super-profanity",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "A profanity filter that lives up to its name.",
   "main": "profanity.js",
   "scripts": {
@@ -20,7 +20,7 @@
     "detect",
     "detector",
     "n-gram",
-	"bad word"
+    "bad word"
   ],
   "homepage": "https://github.com/Gasegamer/super-profanity",
   "author": "Gabriel Ciriaco de Carvalho",
@@ -28,12 +28,11 @@
   "bugs": {
     "url": "https://github.com/Gasegamer/super-profanity/issues"
   },
-  "homepage": "https://github.com/Gasegamer/super-profanity#readme",
   "dependencies": {
     "noswearing": "^1.2.0",
     "tinyld": "^1.2.0"
   },
   "exports": {
-	".": "./dist/profanity.js"
+    ".": "./dist/profanity.js"
   }
 }

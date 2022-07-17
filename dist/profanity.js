@@ -1,6 +1,6 @@
 /*
  * License
- * 
+ *
  * This work is dual-licensed under Mozilla 2.0 and Apache 2.0.
  * You can't choose between one of them if you use this work.
  * `SPDX-License-Identifier: Apache-2.0 OR GPL-2.0-or-later`
@@ -31,10 +31,13 @@ const fs = require("fs").promises;
 const path = require("path");
 
 const { detectAll } = require("tinyld");
-const { NoSwearing } = require(path.resolve(__dirname, './custom_module/noswearing'));
+const { NoSwearing } = require(path.resolve(
+  __dirname,
+  "./custom_module/noswearing"
+));
 
-/** @const {string} - Default language used to detect bad words. */
-const mainLanguage = "en";
+/** @let {string} - Default language used to detect bad words. */
+let mainLanguage = "en";
 
 const profanityJson = JSON.parse(
   require("fs").readFileSync(
@@ -78,13 +81,10 @@ function checker(text, language = mainLanguage, hideInformation = false) {
  * @param {string} text - The text where is wanted to find a bad word.
  * @param {Object=} options - Optional functions to help with your needs.
  * @param {boolean=} [options.autoLog=false] - Automatically displays the detection information.
- * @param {mainLanguage=} [options.mainLanguage=mainLanguage] - A default language to use in case all other detected fails.
  * @param {hideInformation=} [options.hideInformation=false] - Displays or not the information about the detection.
  */
-function profanity(text, options={}) {
+function profanity(text, options = {}) {
   options.autoLog = options.autoLog === undefined ? false : options.autoLog;
-  options.mainLanguage =
-    options.mainLanguage === undefined ? mainLanguage : options.mainLanguage;
   options.hideInformation =
     options.hideInformation === undefined ? false : true;
 
@@ -108,24 +108,24 @@ function profanity(text, options={}) {
       // Guarantee it's not a bad word based on the main language defined
       console.log(
         result === false || result === undefined
-          ? checker(text, options.mainLanguage)
+          ? checker(text)
           : result
       );
     } else {
       console.log(
         result === false || result === undefined
-          ? checker(text, options.mainLanguage, options.hideInformation)
+          ? checker(text, null, options.hideInformation)
           : result
       );
     }
   } else {
     if (!options.hideInformation) {
       return result === false || result === undefined
-        ? checker(text, options.mainLanguage)
+        ? checker(text)
         : result;
     } else {
       return result === false || result === undefined
-        ? checker(text, options.mainLanguage, options.hideInformation)
+        ? checker(text, null, options.hideInformation)
         : result;
     }
   }
@@ -154,7 +154,7 @@ function whitelistWord(word, language = mainLanguage) {
   let languageProfanityWords = profanityJson[language];
   languageProfanityWords[word] = 0;
 
-  return updateProfanityJson(`${word} whitelisted at ${language}`);
+  return updateProfanityJson(`${word} whitelisted at ${language}.`);
 }
 
 /**
@@ -187,8 +187,20 @@ function removeWord(word, language = mainLanguage) {
   }
 }
 
+/**
+ * Change main language.
+ * @param {string} newLang - Language, in ISO2 format, desired to be the new main language.
+ */
+function changeMainLanguage(newLang){
+  let originalMain = mainLanguage;
+  mainLanguage = newLang;
+
+  return console.log(`Changed main language from ${originalMain} to ${newLang}.`);
+}
+
 module.exports = {
   profanity,
+  changeMainLanguage,
   whitelistWord,
   blacklistWord,
   removeWord,

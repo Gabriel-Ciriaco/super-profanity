@@ -159,6 +159,19 @@
         return 0;
     }
 
+    /*
+    * Prevent white listed words of being detected.
+    */
+    function whiteListIndexes(replacedWord) {
+      let indexes = [];
+      if (replacedWord !== null) {
+        for (let i = 0; i < replacedWord[0].length; i++) {
+          indexes.push(replacedWord.index + i);
+        }
+      }
+      return indexes;
+    }
+
     class NoSwearing {
         constructor(swearList) {
             this.list = [];
@@ -246,10 +259,21 @@
             var deviations = 0;
 
             var detected = [];
+            var whiteIndexes = []; // Whitelisted indexes
 
             for (var i = 0; i < text.length; i++) {
                 if (watch) {
                     var word = watch.word;
+
+                    if (watch.info === 0) {
+                      // Prevent white listed words
+                      let replacedWord =
+                        input.match(watch.wordOriginal) ||
+                        input.replace(/[^a-zA-Z]/g, "").match(watch.wordOriginal);
+
+                        whiteIndexes.push(...whiteListIndexes(replacedWord));
+                    }
+
                     var skipMode = canSkip(text, word, wi, i);
                     // console.log(i, wi, ind, word, text[i], word[wi], skipMode)
                     if (
@@ -273,7 +297,9 @@
                                 (!isVowel(text[i]) || !isVowel(text[i + 1]) || !vowelDistinct(text[i + 1], text[i])) &&
                                 countSyllables(text.substring(index, i + 1)) <= countSyllables(word) && // Syllables must not be less than text
                                 (!isHard(text[i]) || postModifyingSounds.indexOf(text[i + 1]) == -1) &&
-                                (combinedHSounds.hasOwnProperty(text[i]) == false || text[i + 1] != "h")
+                                (combinedHSounds.hasOwnProperty(text[i]) == false || text[i + 1] != "h") &&
+                                (watch.info === 1 || watch.info === 2) &&
+                                (!whiteIndexes.includes(index))
                             ) {
                                 detected.push({
                                     original: inputArr.slice(posmap[index], posmap[i] + 1).join(""),
@@ -353,7 +379,12 @@
                             deviations = 0;
                             wi = 1;
                             co = 0;
-                            if (watch.word.length == 1 && (watch.word == "i" || watch.word == "a")) {
+                            if (
+                                watch.word.length == 1
+                                && (watch.word == "i" || watch.word == "a")
+                                && (watch.info === 1 || watch.info === 2)
+                                && !whiteIndexes.includes(index)
+                               ) {
                                 detected.push({
                                     original: text[i],
                                     word: watch.wordOriginal,
@@ -364,7 +395,7 @@
                                 });
                                 watch = null
                                 i--;
-                            }
+                              }
 
                         } else {
                             ind = 0;
@@ -548,23 +579,14 @@
              * word in the profanity list in case
              * of no detection by spelling.
             */
-            if ( out.length === 0) {
+            if (out.length === 0) {
               this.list.find((word) => {
+                let replacedWord =
+                  input.match(word.wordOriginal) ||
+                  input.replace(/[^a-zA-Z]/g, "").match(word.wordOriginal);
 
-                if (input.includes(word.wordOriginal) ){
-                  let replacedWord = input.match(word.wordOriginal);
-
-                  out.push({
-                    deviations: deviations,
-                    end: end,
-                    info: word.info,
-                    original: replacedWord[0],
-                    replacedLen: replacedWord.length,
-                    word: word.wordOriginal,
-                    start: 0
-                  })
-                } else if ( input.replace(/[^a-zA-Z]/g, '').includes(word.wordOriginal) ) {
-                  let replacedWord = input.replace(/[^a-zA-Z]/g, '').match(word.wordOriginal);
+                if (replacedWord !== null) {
+                  if (whiteIndexes.includes(replacedWord.index)) return;
 
                   out.push({
                     deviations: deviations,
@@ -573,8 +595,8 @@
                     original: replacedWord[0],
                     replacedLen: replacedWord.length,
                     word: word.wordOriginal,
-                    start: 0
-                  })
+                    start: 0,
+                  });
                 }
               })
             }
