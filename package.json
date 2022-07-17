@@ -1,6 +1,6 @@
 {
   "name": "super-profanity",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A profanity filter that lives up to its name.",
   "main": "profanity.js",
   "scripts": {

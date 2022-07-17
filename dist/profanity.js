@@ -95,6 +95,8 @@ function profanity(text, options = {}) {
   detectAll(text).forEach((possibility) => {
     language = possibility.lang; // Return the language as iso2 format
 
+    if (result !== undefined && result !== false) return; // Prevents result from being rewritten.
+
     if (profanityJson[language] && !options.hideInformation) {
       // Check if there is a profanity word list for this language
       result = checker(text, language); // Check if there is a bad word by spelling
