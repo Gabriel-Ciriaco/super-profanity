@@ -26,13 +26,111 @@ console.log(result);
 
 /*
 {
-  badWordLanguage:'en'
-  detectedWord:'@  ss'
-  isBadWord:true
-  profanityWordRelated:'ass'
+  badWordLanguage: 'en'
+  detectedWord: '@  ss'
+  isBadWord: true
+  profanityWordRelated: 'ass'
 }
 */
 ```
+
+---
+
+### Main Language
+
+Although it tries its best, `super-profanity` is far from perfect... Thus, to guarantee that the code will check for swears in a desired language,
+you have the option to select your main language, which by default is *English*. The main language will **always** be checked in the provided sentence.
+
+Use `changeMainLanguage` if needed.
+
+````js
+const { changeMainLanguage } = require("super-profanity");
+
+changeMainLanguage('pt');
+
+/*
+Changed main language from en to pt.
+*/
+````
+
+---
+
+### Usefull functions
+
+#### Whitelist
+Whitelist a word in a specific language.
+````js
+const { whitelistWord } = require("super-profanity");
+
+// It will whitelist in your mainLanguage by default.
+whitelistWord("grass");
+
+/*
+grass whitelisted at en.
+*/
+
+````
+
+````js
+const { whitelistWord } = require("super-profanity");
+
+// You can change the language in which the word will be added.
+whitelistWord("merda", "pt").
+
+/*
+merda whitelisted at pt.
+*/
+````
+
+#### Blacklist
+Blacklist a word in a specific language.
+````js
+const { blacklistWord } = require("super-profanity");
+
+// It will blacklist in your mainLanguage by default.
+blacklistWord("🖕");
+
+/*
+🖕 blacklisted at en.
+*/
+
+````
+
+````js
+const { blacklistWord } = require("super-profanity");
+
+// You can change the language in which the word will be added.
+blacklistWord("🖕", "pt").
+
+/*
+🖕 blacklisted at pt.
+*/
+````
+
+#### Remove Word
+Remove a word in a specific language.
+````js
+const { removeWord } = require("super-profanity");
+
+// It will remove from your mainLanguage by default.
+removeWord("mierda");
+
+/*
+mierda removed from en.
+*/
+
+````
+
+````js
+const { removeWord } = require("super-profanity");
+
+// You can change the language in which the word will be removed.
+removeWord("shit", "es").
+
+/*
+shit removed from es.
+*/
+````
 
 ---
 
@@ -50,10 +148,10 @@ profanity(
 
 /*
 {
-  badWordLanguage:'en'
-  detectedWord:'@  ss'
-  isBadWord:true
-  profanityWordRelated:'ass'
+  badWordLanguage: 'en'
+  detectedWord: '@  ss'
+  isBadWord: true
+  profanityWordRelated: 'ass'
 }
 */
 ````
@@ -69,6 +167,7 @@ const result = profanity(
 );
 
 console.log(result);
+
 /*
 true
 */
