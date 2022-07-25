@@ -1,6 +1,6 @@
 {
   "name": "super-profanity",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "A profanity filter that lives up to its name.",
   "main": "profanity.js",
   "scripts": {
@@ -31,6 +31,9 @@
   "dependencies": {
     "noswearing": "^1.2.0",
     "tinyld": "1.2.0"
+  },
+  "engines": {
+    "node": ">=15.0.0"
   },
   "exports": {
     ".": "./dist/profanity.js"
