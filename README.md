@@ -227,7 +227,7 @@ SOFTWARE.
 <table>
 	<tr>
 		<td align="center">
-			<a href="https://github.com/Gasegamer">
+			<a href="https://github.com/Gabriel-Ciriaco">
 				<img src="https://avatars.githubusercontent.com/u/66225865" width="100px;" alt=""/>
 				<br>
 				<sub>
